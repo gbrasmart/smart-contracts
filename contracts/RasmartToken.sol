@@ -1,4 +1,4 @@
-pragma solidity ^0.4.24;
+pragma solidity ^0.4.25;
 import "./mixins/RBACMixin.sol";
 import "./mixins/RBACMintableTokenMixin.sol";
 import "./mixins/RBACERC223TokenFinalization.sol";

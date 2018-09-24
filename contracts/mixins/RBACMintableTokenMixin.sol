@@ -1,4 +1,4 @@
-pragma solidity ^0.4.24;
+pragma solidity ^0.4.25;
 import "./RBACMixin.sol";
 import "zeppelin-solidity/contracts/token/ERC20/StandardToken.sol";
 

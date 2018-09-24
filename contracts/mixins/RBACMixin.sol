@@ -1,4 +1,4 @@
-pragma solidity ^0.4.24;
+pragma solidity ^0.4.25;
 
 
 /// @title Role based access control mixin for Rasmart Platform
