@@ -20,6 +20,7 @@ const ropstenProvider = process.env.SOLIDITY_COVERAGE
   : infuraProvider("ropsten");
 
 module.exports = {
+
   networks: {
     development: {
       host: "localhost",
@@ -47,6 +48,12 @@ module.exports = {
       port: process.env.ETH_PORT,
       network_id: "*", // eslint-disable-line camelcase
       from: process.env.ETH_FROM
+    }
+  },
+  solc: {
+    optimizer: {
+      enabled: true,
+      runs: 200
     }
   }
 };
