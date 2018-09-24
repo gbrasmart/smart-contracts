@@ -41,6 +41,12 @@ module.exports = {
       host: "localhost",
       port: 8545,
       network_id: "*" // eslint-disable-line camelcase
+    },
+    custom: {
+      host: process.env.ETH_HOST,
+      port: process.env.ETH_PORT,
+      network_id: "*", // eslint-disable-line camelcase
+      from: process.env.ETH_FROM
     }
   }
 };

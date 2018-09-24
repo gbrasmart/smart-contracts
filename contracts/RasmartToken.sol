@@ -17,7 +17,7 @@ contract RasmartToken is StandardBurnableToken, RBACERC223TokenFinalization, RBA
   /// @notice Constant field with token precision depth
   uint256 constant public decimals = 18; // solium-disable-line uppercase
   /// @notice Constant field with token cap (total supply limit)
-  uint256 constant public cap = 5 * (10 ** 6) * (10 ** decimals); // solium-disable-line uppercase
+  uint256 constant public cap = 50 * (10 ** 6) * (10 ** decimals); // solium-disable-line uppercase
 
   /// @notice Overrides original mint function from MintableToken to limit minting over cap
   /// @param _to The address that will receive the minted tokens.
