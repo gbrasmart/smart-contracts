@@ -13,7 +13,7 @@ interface IMintableToken {
 /// @dev Transfer ownership/minting role to contract and execute mint over TokenBucket proxy to secure
 contract TokenBucket is RBACMixin, IMintableToken {
   using SafeMath for uint;
-  
+
   /// @notice Limit maximum amount of available for minting tokens when bucket is full
   /// @dev Should be enough to mint tokens with proper speed but less enough to prevent overminting in case of losing pkey
   uint256 public size;
