@@ -35,6 +35,29 @@ contract ICOBucket is RBACMixin, IMintableToken {
   /// @param left is amount of tokens available in bucket after leak
   event Leak(address indexed to, uint256 left);
 
+  /// ICO SECTION
+  /// @notice A token price
+  uint256 public tokenCost;
+
+  /// @notice Allow only whitelisted wallets to purchase
+  mapping(address => bool) public whiteList;
+
+  /// @notice Main wallet all funds are transferred to
+  address public wallet;
+
+  /// @notice Main wallet all funds are transferred to
+  uint256 public bonus;
+
+  /// @notice Minimum amount of tokens can be purchased
+  uint256 public minimumTokensForPurchase;
+
+  /// @notice A helper
+  modifier onlyWhiteList {
+      require(whiteList[msg.sender]);
+      _;
+  }
+  /// END ICO SECTION
+
   /// @param _token is address of Mintable token
   /// @param _size initial size of token bucket
   /// @param _rate initial refill rate (tokens/sec)
@@ -92,5 +115,48 @@ contract ICOBucket is RBACMixin, IMintableToken {
     uint256 timeAfterMint = now.sub(lastMintTime);
     uint256 refillAmount = rate.mul(timeAfterMint).add(leftOnLastMint);
     return size < refillAmount ? size : refillAmount;
+  }
+
+  /// ICO METHODS
+  function addToWhiteList(address _address) public onlyMinter {
+    whiteList[_address] = true;
+  }
+
+  function removeFromWhiteList(address _address) public onlyMinter {
+    whiteList[_address] = false;
+  }
+
+  function setWallet(address _wallet) public onlyOwner {
+    wallet = _wallet;
+  }
+
+  function setBonus(uint256 _bonus) public onlyOwner {
+    bonus = _bonus;
+  }
+
+  function setMinimumTokensForPurchase(uint256 _minimum) public onlyOwner {
+    minimumTokensForPurchase = _minimum;
+  }
+
+  /// @notice Purchase function mints tokens
+  /// @return A boolean that indicates if the operation was successful.
+  function () public payable onlyWhiteList {
+    uint256 tokensAmount = tokensAmountForPurchase();
+    uint256 available = availableTokens();
+    uint256 minimum = minimumTokensForPurchase;
+    require(tokensAmount <= available);
+    require(tokensAmount >= minimum);
+    // transfer all funcds to external multisig wallet
+    wallet.transfer(msg.value);
+    leftOnLastMint = available.sub(tokensAmount);
+    lastMintTime = now; // solium-disable-line security/no-block-members
+    require(token.mint(msg.sender, tokensAmount));
+  }
+
+  function tokensAmountForPurchase() private constant returns(uint256) {
+    return msg.value.mul(10 ** 18)
+                    .div(tokenCost)
+                    .mul(100 + bonus)
+                    .div(100);
   }
 }
