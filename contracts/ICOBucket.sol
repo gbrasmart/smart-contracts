@@ -11,7 +11,7 @@ interface IMintableToken {
 /// @author Abha Mai <maiabha82@gmail.com>
 /// @notice Works with tokens implemented Mintable interface
 /// @dev Transfer ownership/minting role to contract and execute mint over ICOBucket proxy to secure
-contract ICOBucket is RBACMixin, IMintableToken {
+contract ICOBucket is RBACMixin {
   using SafeMath for uint;
 
   /// @notice Limit maximum amount of available for minting tokens when bucket is full
@@ -61,11 +61,15 @@ contract ICOBucket is RBACMixin, IMintableToken {
   /// @param _token is address of Mintable token
   /// @param _size initial size of token bucket
   /// @param _rate initial refill rate (tokens/sec)
-  constructor (address _token, uint256 _size, uint256 _rate) public {
+  constructor (address _token, uint256 _size, uint256 _rate, uint256 _cost, address _wallet, uint256 _bonus, uint256 _minimum) public {
     token = IMintableToken(_token);
     size = _size;
     rate = _rate;
     leftOnLastMint = _size;
+    tokenCost = _cost;
+    wallet = _wallet;
+    bonus = _bonus;
+    minimumTokensForPurchase = _minimum;
   }
 
   /// @notice Change size of bucket
@@ -93,19 +97,6 @@ contract ICOBucket is RBACMixin, IMintableToken {
   /// @return A boolean that indicates if the operation was successful.
   function setSizeAndRate(uint256 _size, uint256 _rate) public onlyOwner returns (bool) {
     return setSize(_size) && setRate(_rate);
-  }
-
-  /// @notice Function to mint tokens
-  /// @param _to The address that will receive the minted tokens.
-  /// @param _amount The amount of tokens to mint.
-  /// @return A boolean that indicates if the operation was successful.
-  function mint(address _to, uint256 _amount) public onlyMinter returns (bool) {
-    uint256 available = availableTokens();
-    require(_amount <= available);
-    leftOnLastMint = available.sub(_amount);
-    lastMintTime = now; // solium-disable-line security/no-block-members
-    require(token.mint(_to, _amount));
-    return true;
   }
 
   /// @notice Function to calculate and get available in bucket tokens
