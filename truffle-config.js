@@ -47,7 +47,8 @@ module.exports = {
       host: process.env.ETH_HOST,
       port: process.env.ETH_PORT,
       network_id: "*", // eslint-disable-line camelcase
-      from: process.env.ETH_FROM
+      from: process.env.ETH_FROM,
+      gasPrice: 20 * (10**9)
     }
   },
   solc: {

@@ -13,9 +13,9 @@ module.exports = async function(deployer, network, [owner, minter]) {
     const ICOBucketSize = 325 * (10**6) * (10**18);
     const ICOBucketRate = 325 * (10**6) * (10**18);
     const ICOBucketCost = 0.001 * (10**18);
-    const ICOBucketWallet = "0xd8c72e912f2efaf09e4b3f8567f6e00e0859143c";
+    const ICOBucketWallet = "0xa49eaefb5515137db51c8894f64d4c3e17f9e68d";
     const ICOBucketInitialBonusPercent = 30;
-    const ICOBucketMinimumTokensForPurchase = 1000 * (10**18);
+    const ICOBucketMinimumTokensForPurchase = 1 * (10**18);
     await deployer.deploy(ICOBucket, RasmartToken.address, ICOBucketSize, ICOBucketRate, ICOBucketCost, ICOBucketWallet, ICOBucketInitialBonusPercent, ICOBucketMinimumTokensForPurchase);
     const ICOBucketDeployed = await ICOBucket.deployed();
     RasmartTokenDeployed.addMinter(ICOBucketDeployed.address);
