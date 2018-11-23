@@ -6,7 +6,7 @@ import "zeppelin-solidity/contracts/token/ERC20/StandardBurnableToken.sol";
 
 
 /// @title Rasmart Platform token implementation
-/// @author Abha Mai <maiabha82@gmail.com>
+/// @author Mai Abha <maiabha82@gmail.com>
 /// @dev Implements ERC20, ERC223 and MintableToken interfaces as well as capped and finalization logic
 contract RasmartToken is StandardBurnableToken, RBACERC223TokenFinalization, RBACMintableTokenMixin {
   /// @notice Constant field with token full name

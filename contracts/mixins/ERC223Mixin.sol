@@ -4,7 +4,7 @@ import "./ERC223ReceiverMixin.sol";
 
 
 /// @title Custom implementation of ERC223 
-/// @author Abha Mai <maiabha82@gmail.com>
+/// @author Mai Abha <maiabha82@gmail.com>
 contract ERC223Mixin is StandardToken {
   event Transfer(address indexed from, address indexed to, uint256 value, bytes data);
 

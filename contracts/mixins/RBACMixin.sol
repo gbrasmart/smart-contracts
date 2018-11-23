@@ -2,7 +2,7 @@ pragma solidity ^0.4.25;
 
 
 /// @title Role based access control mixin for Rasmart Platform
-/// @author Abha Mai <maiabha82@gmail.com>
+/// @author Mai Abha <maiabha82@gmail.com>
 /// @dev Ignore DRY approach to achieve readability
 contract RBACMixin {
   /// @notice Constant string message to throw on lack of access

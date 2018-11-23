@@ -4,7 +4,7 @@ import "./ERC223Mixin.sol";
 
 
 /// @title Role based token finalization mixin
-/// @author Abha Mai <maiabha82@gmail.com>
+/// @author Mai Abha <maiabha82@gmail.com>
 contract RBACERC223TokenFinalization is ERC223Mixin, RBACMixin {
   event Finalize();
   /// @notice Public field inicates the finalization state of smart-contract

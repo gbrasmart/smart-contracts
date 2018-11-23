@@ -8,7 +8,7 @@ interface IMintableToken {
 
 
 /// @title Very simplified implementation of Token Bucket Algorithm to secure token minting
-/// @author Abha Mai <maiabha82@gmail.com>
+/// @author Mai Abha <maiabha82@gmail.com>
 /// @notice Works with tokens implemented Mintable interface
 /// @dev Transfer ownership/minting role to contract and execute mint over PlatformBucket proxy to secure
 contract PlatformBucket is RBACMixin, IMintableToken {
