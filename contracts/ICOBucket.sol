@@ -129,6 +129,10 @@ contract ICOBucket is RBACMixin {
     minimumTokensForPurchase = _minimum;
   }
 
+  function setTokenCost(uint256 _tokencost) public onlyOwner {
+    tokenCost = _tokencost;
+  }
+
   /// @notice Purchase function mints tokens
   /// @return A boolean that indicates if the operation was successful.
   function () public payable onlyWhiteList {
